@@ -32,7 +32,3 @@
 #Apple
 .DS_Store
 .vscode
-
-# Project
-philo
-philo_bonus
