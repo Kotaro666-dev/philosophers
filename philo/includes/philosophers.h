@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:22:35 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/27 08:33:34 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/27 08:36:44 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
 # include <limits.h>
 # include <errno.h>
 
-typedef struct	s_philo
+typedef struct s_philo
 {
-	int	number_of_philos;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	number_of_must_eat;
-	pthread_mutex_t *forks;
+	int				number_of_philos;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				number_of_must_eat;
+	pthread_mutex_t	*forks;
 }				t_philo;
 
 /*
@@ -67,6 +67,5 @@ size_t	ft_strlen(const char *str);
 void	ft_putstr_fd(char *str, int fd);
 void	ft_putendl_fd(char *str, int fd);
 int		ft_atoi(const char *str);
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:17:04 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/27 08:33:52 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/27 08:37:59 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static void	initialize_forks(t_philo *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	philo->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) *
-												philo->number_of_philos);
+	philo->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* philo->number_of_philos);
 	if (!philo->forks)
 	{
 		perror("malloc");
