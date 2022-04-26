@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:17:04 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/27 08:42:23 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/27 08:45:35 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,19 @@ static void	parse_args(int argc, char **argv, t_philo *philo)
 
 static void	initialize_philosophers(t_philo *philo)
 {
-	philo->philosophers = (pthread_t *)malloc(sizeof(pthread_t));
+	philo->philosophers = (pthread_t *)malloc(sizeof(pthread_t)
+		* philo->number_of_philos);
+	if (!philo->philosophers)
+	{
+		perror("malloc");
+		exit(errno);
+	}
+}
+
+static void	initialize_monitors(t_philo *philo)
+{
+	philo->monitors = (pthread_t *)malloc(sizeof(pthread_t)
+		* philo->number_of_philos);
 	if (!philo->philosophers)
 	{
 		perror("malloc");
@@ -76,5 +88,6 @@ void	initialize(int argc, char **argv, t_philo *philo)
 {
 	parse_args(argc, argv, philo);
 	initialize_philosophers(philo);
+	initialize_monitors(philo);
 	initialize_forks(philo);
 }
