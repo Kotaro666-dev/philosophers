@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:22:35 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/23 16:17:29 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/27 08:33:34 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <limits.h>
+# include <errno.h>
 
 typedef struct	s_philo
 {
@@ -27,7 +28,14 @@ typedef struct	s_philo
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	number_of_must_eat;
+	pthread_mutex_t *forks;
 }				t_philo;
+
+/*
+** INITIALIZE.C
+*/
+
+void	initialize(int argc, char **argv, t_philo *philo);
 
 /*
 ** LOG.C
@@ -44,6 +52,12 @@ void	log_having_died(long timestamp_in_ms, int philosopher_number);
 */
 
 void	perror_and_exit(char *str);
+
+/*
+** FREE.C
+*/
+
+void	free_forks(t_philo *philo);
 
 /*
 ** UTILITIES
