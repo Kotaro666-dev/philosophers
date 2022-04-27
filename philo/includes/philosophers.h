@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:22:35 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/27 08:43:55 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/27 09:17:37 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <pthread.h>
 # include <limits.h>
 # include <errno.h>
+# include <sys/time.h>
+# include "constants.h"
 
 typedef struct s_philo
 {
@@ -34,6 +36,12 @@ typedef struct s_philo
 }				t_philo;
 
 /*
+** START_PHILOSOPHERS.C
+*/
+
+void	start_philosophers(t_philo *philo);
+
+/*
 ** INITIALIZE.C
 */
 
@@ -43,11 +51,11 @@ void	initialize(int argc, char **argv, t_philo *philo);
 ** LOG.C
 */
 
-void	log_taking_fork(long timestamp_in_ms, int philosopher_number);
-void	log_eating(long timestamp_in_ms, int philosopher_number);
-void	log_sleeping(long timestamp_in_ms, int philosopher_number);
-void	log_thinking(long timestamp_in_ms, int philosopher_number);
-void	log_having_died(long timestamp_in_ms, int philosopher_number);
+void	log_taking_fork(int philosopher_number);
+void	log_eating(int philosopher_number);
+void	log_sleeping(int philosopher_number);
+void	log_thinking(int philosopher_number);
+void	log_having_died(int philosopher_number);
 
 /*
 ** HANDLE_ERROR.C
@@ -69,5 +77,6 @@ size_t	ft_strlen(const char *str);
 void	ft_putstr_fd(char *str, int fd);
 void	ft_putendl_fd(char *str, int fd);
 int		ft_atoi(const char *str);
+long	get_current_timestamp();
 
 #endif
