@@ -6,7 +6,7 @@
 #    By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 08:28:31 by kkamashi          #+#    #+#              #
-#    Updated: 2022/04/10 20:49:16 by kkamashi         ###   ########.fr        #
+#    Updated: 2022/04/27 09:31:02 by kkamashi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = philo
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
+PTHREAD = -pthread
 DEBUG = -g -fsanitize=address
 DEPENDENCY_OPTION = -MMD -MP -MF
 SRCS_DIR = ./srcs
@@ -28,11 +29,11 @@ OBJS = $(SRCS:.c=.o)
 DEPS = ${SRCS:.c=.d}
 
 .c.o:
-	$(CC) $(CFLAGS) $(DEBUG) $(INCLUDE) -c $(DEPENDENCY_OPTION) ${<:.c=.d} \
+	$(CC) $(CFLAGS) ${PTHREAD} $(DEBUG) $(INCLUDE) -c $(DEPENDENCY_OPTION) ${<:.c=.d} \
 	$< -o ${<:.c=.o}
 
 $(NAME): $(OBJS)
-	${CC} ${CFLAGS} $(DEBUG) ${OBJS} -o $(NAME)
+	${CC} ${CFLAGS} ${PTHREAD} $(DEBUG) ${OBJS} -o $(NAME)
 
 all: $(NAME)
 
