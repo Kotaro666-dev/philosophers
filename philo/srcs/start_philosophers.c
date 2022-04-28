@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:50:26 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/27 09:37:10 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/28 20:18:48 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,34 +40,42 @@ void	*start_dining(void *index)
 {
 	int	philosopher;
 
-	philosopher = (int)index;
+	philosopher = *((int*)index);
 	// TODO: 一連の食事を行う
-	printf("%d is dining.", philosopher);
+	printf("%d is dining.\n", philosopher + 1);
+	return (NULL);
+
 }
 
 void	*start_monitoring(void *index)
 {
 	int	philosopher;
 
-	philosopher = (int)index;
-	printf("%d is monitoring.", philosopher);
+	philosopher = *((int*)index);
+	printf("%d is monitoring.\n", philosopher + 1);
 	// TODO: 哲学者が死んだかどうかを判定
 	// 死んだら、ログを出力する
+	return (NULL);
 }
+
+/*
+** int pthread_create(pthread_t * thread, pthread_attr_t * attr,
+** 		void * (*start_routine)(void *), void * arg);
+*/
 
 void	start_philosophers(t_philo *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < philo->number_of_philos)
 	{
-		if (pthread_create(&philo->philosophers[i], NULL, start_dining, (void *)i) != 0)
+		if (pthread_create(&philo->philosophers[i], NULL, start_dining, &i) != 0)
 		{
 			// 動的メモリの開放
 			perror_and_exit("pthread_create");
 		}
-		if (pthread_create(&philo->monitors[i], NULL, start_monitoring, (void *)i) != 0)
+		if (pthread_create(&philo->monitors[i], NULL, start_monitoring, &i) != 0)
 		{
 			// 動的メモリの開放
 			perror_and_exit("pthread_create");
@@ -78,7 +86,7 @@ void	start_philosophers(t_philo *philo)
 	while (i < philo->number_of_philos)
 	{
 		pthread_join(philo->philosophers[i], NULL);
-		pthread_join(philo->monitors[i], NULL);
+		// pthread_join(philo->monitors[i], NULL);
 		i++;
 	}
 }
