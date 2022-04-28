@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:17:04 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/27 08:45:35 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/28 21:31:17 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,26 @@ static void	parse_args(int argc, char **argv, t_philo *philo)
 
 static void	initialize_philosophers(t_philo *philo)
 {
-	philo->philosophers = (pthread_t *)malloc(sizeof(pthread_t)
+	int	i;
+
+	philo->philosophers = (t_philosopher *)malloc(sizeof(t_philosopher)
 		* philo->number_of_philos);
 	if (!philo->philosophers)
 	{
 		perror("malloc");
 		exit(errno);
 	}
-}
-
-static void	initialize_monitors(t_philo *philo)
-{
-	philo->monitors = (pthread_t *)malloc(sizeof(pthread_t)
-		* philo->number_of_philos);
-	if (!philo->philosophers)
+	i = 0;
+	while (i < philo->number_of_philos)
 	{
-		perror("malloc");
-		exit(errno);
+		philo->philosophers[i].id = i;
+		philo->philosophers[i].time_to_die = philo->time_to_die;
+		philo->philosophers[i].time_to_eat = philo->time_to_eat;
+		philo->philosophers[i].time_to_sleep = philo->time_to_sleep;
+		philo->philosophers[i].number_of_eaten = 0;
+		philo->philosophers[i].number_of_must_eat = philo->number_of_must_eat;
+		philo->philosophers[i].have_died = FALSE;
+		i++;
 	}
 }
 
@@ -88,6 +91,5 @@ void	initialize(int argc, char **argv, t_philo *philo)
 {
 	parse_args(argc, argv, philo);
 	initialize_philosophers(philo);
-	initialize_monitors(philo);
 	initialize_forks(philo);
 }
