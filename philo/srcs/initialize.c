@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:17:04 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/28 21:31:17 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 09:45:45 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,10 @@ static void	parse_args(int argc, char **argv, t_philo *philo)
 	}
 }
 
-static void	initialize_philosophers(t_philo *philo)
+static void	initialize_philosopher(t_philo *philo)
 {
 	int	i;
 
-	philo->philosophers = (t_philosopher *)malloc(sizeof(t_philosopher)
-		* philo->number_of_philos);
-	if (!philo->philosophers)
-	{
-		perror("malloc");
-		exit(errno);
-	}
 	i = 0;
 	while (i < philo->number_of_philos)
 	{
@@ -59,8 +52,29 @@ static void	initialize_philosophers(t_philo *philo)
 		philo->philosophers[i].number_of_eaten = 0;
 		philo->philosophers[i].number_of_must_eat = philo->number_of_must_eat;
 		philo->philosophers[i].have_died = FALSE;
+		philo->philosophers[i].fork_on_right_hand = &(philo->forks[i]);
+		if (i == philo->number_of_philos - 1)
+		{
+			philo->philosophers[i].fork_on_left_hand = &(philo->forks[0]);
+		}
+		else
+		{
+			philo->philosophers[i].fork_on_left_hand = &(philo->forks[i + 1]);
+		}
 		i++;
 	}
+}
+
+static void	initialize_philosophers(t_philo *philo)
+{
+	philo->philosophers = (t_philosopher *)malloc(sizeof(t_philosopher)
+		* philo->number_of_philos);
+	if (!philo->philosophers)
+	{
+		perror("malloc");
+		exit(errno);
+	}
+	initialize_philosopher(philo);
 }
 
 static void	initialize_forks(t_philo *philo)
@@ -90,6 +104,6 @@ static void	initialize_forks(t_philo *philo)
 void	initialize(int argc, char **argv, t_philo *philo)
 {
 	parse_args(argc, argv, philo);
-	initialize_philosophers(philo);
 	initialize_forks(philo);
+	initialize_philosophers(philo);
 }
