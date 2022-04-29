@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 10:50:43 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 11:33:23 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 11:33:58 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	take_fork_on_left_side(t_philosopher *philosopher)
 	log_taking_fork(philosopher->id + 1);
 }
 
-static void	put_forks_on_table(t_philosopher *philosopher)
+static void	put_forks_back_on_table(t_philosopher *philosopher)
 {
 	pthread_mutex_unlock(philosopher->fork_on_right_hand);
 	pthread_mutex_unlock(philosopher->fork_on_left_hand);
@@ -57,7 +57,7 @@ void	*start_dining(void *void_philosopher)
 		take_fork_on_right_side(philosopher);
 		take_fork_on_left_side(philosopher);
 		start_eating(philosopher);
-		put_forks_on_table(philosopher);
+		put_forks_back_on_table(philosopher);
 		start_sleeping(philosopher);
 		if (philosopher->number_of_eaten == philosopher->config->number_of_must_eat)
 		{
