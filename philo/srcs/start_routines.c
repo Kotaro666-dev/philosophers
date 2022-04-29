@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 10:48:24 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 13:41:30 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 13:47:47 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ void	wait_til_next_action(int milliseconds)
 void	start_eating(t_philosopher *philosopher)
 {
 	pthread_mutex_lock(&(philosopher->is_eating_mutex));
+	if (philosopher->have_died)
+	{
+		pthread_mutex_unlock(&(philosopher->is_eating_mutex));
+		return ;
+	}
 	log_eating(philosopher->id + 1);
 	philosopher->number_of_eaten++;
 	philosopher->last_meal_time = get_current_timestamp();
@@ -32,14 +37,22 @@ void	start_eating(t_philosopher *philosopher)
 	wait_til_next_action(philosopher->config->time_to_eat);
 }
 
-void	start_thinking(t_philosopher *philosopher)
-{
-	log_thinking(philosopher->id + 1);
-	wait_til_next_action(TIME_TO_THINK);
-}
-
 void	start_sleeping(t_philosopher *philosopher)
 {
+	if (philosopher->have_died)
+	{
+		return ;
+	}
 	log_sleeping(philosopher->id + 1);
 	wait_til_next_action(philosopher->config->time_to_sleep);
+}
+
+void	start_thinking(t_philosopher *philosopher)
+{
+	if (philosopher->have_died)
+	{
+		return ;
+	}
+	log_thinking(philosopher->id + 1);
+	wait_til_next_action(TIME_TO_THINK);
 }
