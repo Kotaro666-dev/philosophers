@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:27:30 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/27 08:32:57 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 11:08:28 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_forks(t_philo *philo)
 	int	i;
 
 	i = 0;
-	while (i < philo->number_of_philos)
+	while (i < philo->config.number_of_philos)
 	{
 		if (pthread_mutex_destroy(&philo->forks[i]) != 0)
 		{

@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:26:46 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 10:54:26 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 11:06:16 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	start_philosophers(t_philo *philo)
 	int	i;
 
 	i = 0;
-	while (i < philo->number_of_philos)
+	while (i < philo->config.number_of_philos)
 	{
 		if (pthread_create(&(philo->philosophers[i].pthread_person), NULL,
 				start_dining, &(philo->philosophers[i])) != 0)
@@ -39,7 +39,7 @@ static void	start_philosophers(t_philo *philo)
 		i++;
 	}
 	i = 0;
-	while (i < philo->number_of_philos)
+	while (i < philo->config.number_of_philos)
 	{
 		pthread_join(philo->philosophers[i].pthread_person, NULL);
 		pthread_join(philo->philosophers[i].pthread_monitor, NULL);
