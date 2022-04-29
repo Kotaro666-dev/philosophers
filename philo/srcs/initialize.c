@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:17:04 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 11:21:14 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 13:20:56 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ static void	initialize_philosopher(t_philo *philo)
 	{
 		philo->philosophers[i].id = i;
 		philo->philosophers[i].number_of_eaten = 0;
-		philo->philosophers[i].config = &(philo->config);
+		philo->philosophers[i].last_meal_time = get_current_timestamp();
+		philo->philosophers[i].have_eaten_all = FALSE;
 		philo->philosophers[i].have_died = FALSE;
+		philo->philosophers[i].config = &(philo->config);
 		philo->philosophers[i].fork_on_right_hand = &(philo->forks[i]);
 		if (i == philo->config.number_of_philos - 1)
 		{
@@ -57,6 +59,13 @@ static void	initialize_philosopher(t_philo *philo)
 		else
 		{
 			philo->philosophers[i].fork_on_left_hand = &(philo->forks[i + 1]);
+		}
+		if (pthread_mutex_init(&(philo->philosophers[i].is_eating_mutex), NULL) != 0)
+		{
+			// TODO: 動的メモリの開放
+			free_forks(philo);
+			perror("pthread_mutex_init");
+			exit(errno);
 		}
 		i++;
 	}
