@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:22:35 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 11:16:46 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 13:21:38 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,15 @@ typedef struct s_philosopher
 {
 	int				id;
 	int				number_of_eaten;
+	int				last_meal_time;
+	int				have_eaten_all;
 	int				have_died;
 	t_config		*config;
 	pthread_t		pthread_person;
 	pthread_t		pthread_monitor;
 	pthread_mutex_t	*fork_on_left_hand;
 	pthread_mutex_t	*fork_on_right_hand;
+	pthread_mutex_t	is_eating_mutex;
 }				t_philosopher;
 
 typedef struct s_philo
