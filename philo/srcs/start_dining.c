@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 10:50:43 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 11:33:58 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 12:04:03 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	*start_dining(void *void_philosopher)
 
 	philosopher = (t_philosopher *)void_philosopher;
 	force_even_number_philosopher_to_wait(philosopher);
-	while (TRUE)
+	while (!(philosopher->have_died))
 	{
 		take_fork_on_right_side(philosopher);
 		take_fork_on_left_side(philosopher);
@@ -61,6 +61,7 @@ void	*start_dining(void *void_philosopher)
 		start_sleeping(philosopher);
 		if (philosopher->number_of_eaten == philosopher->config->number_of_must_eat)
 		{
+			philosopher->have_eaten_all = TRUE;
 			break;
 		}
 		start_thinking(philosopher);
