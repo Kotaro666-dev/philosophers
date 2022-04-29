@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:25:28 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/27 09:00:08 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 10:29:41 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define FALSE 0
 # define ERROR -1
 
-# define TIME_TO_THINK 200
+# define TIME_TO_THINK 300
+# define TIME_TO_WAIT_BEFORE_DINING 200
 
 #endif
