@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:50:26 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/28 21:42:42 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 10:43:22 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	wait_til_next_action(int milliseconds)
 void	start_eating(t_philosopher *philosopher)
 {
 	log_eating(philosopher->id + 1);
+	philosopher->number_of_eaten++;
 	wait_til_next_action(philosopher->time_to_eat);
 }
 
@@ -40,30 +41,43 @@ void	start_sleeping(t_philosopher *philosopher)
 	wait_til_next_action(philosopher->time_to_sleep);
 }
 
+void	take_fork_on_right_side(t_philosopher *philosopher)
+{
+	pthread_mutex_lock(philosopher->fork_on_right_hand);
+	log_taking_fork(philosopher->id + 1);
+}
+
+void	take_fork_on_left_side(t_philosopher *philosopher)
+{
+	pthread_mutex_lock(philosopher->fork_on_left_hand);
+	log_taking_fork(philosopher->id + 1);
+}
+
+void	put_forks_on_table(t_philosopher *philosopher)
+{
+	pthread_mutex_unlock(philosopher->fork_on_right_hand);
+	pthread_mutex_unlock(philosopher->fork_on_left_hand);
+}
+
 void	*start_dining(void *void_philosopher)
 {
 	t_philosopher	*philosopher;
 
 	philosopher = (t_philosopher *)void_philosopher;
-	if (philosopher->id % 2 != 0)
+	if (philosopher->id % 2 == 0)
 	{
-		wait_til_next_action(TIME_TO_THINK);
+		wait_til_next_action(TIME_TO_WAIT_BEFORE_DINING);
 	}
 	while (TRUE)
 	{
-		// TODO: 一連の食事を行う
-		// 1. 右のフォークを取る
-		// 2. 左のフォークを取る
-		// 3. 食べる
+		take_fork_on_right_side(philosopher);
+		take_fork_on_left_side(philosopher);
 		start_eating(philosopher);
-		philosopher->number_of_eaten++;
-		// 4. 寝る
+		put_forks_on_table(philosopher);
 		start_sleeping(philosopher);
-		// 5. 考える
 		start_thinking(philosopher);
 		if (philosopher->number_of_eaten == philosopher->number_of_must_eat)
 		{
-			printf("%d has eaten all.\n", philosopher->id + 1);
 			break;
 		}
 	}
@@ -75,7 +89,7 @@ void	*start_monitoring(void *void_philosopher)
 	t_philosopher	*philosopher;
 
 	philosopher = (t_philosopher *)void_philosopher;
-	printf("%d is monitoring.\n", philosopher->id + 1);
+	// printf("%d is monitoring.\n", philosopher->id + 1);
 	// TODO: 哲学者が死んだかどうかを判定
 	// 死んだら、ログを出力する
 	return (NULL);
