@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 10:50:43 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 11:13:21 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 11:29:54 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void	*start_dining(void *void_philosopher)
 		start_eating(philosopher);
 		put_forks_on_table(philosopher);
 		start_sleeping(philosopher);
-		start_thinking(philosopher);
 		if (philosopher->number_of_eaten == philosopher->config->number_of_must_eat)
 		{
 			break;
 		}
+		start_thinking(philosopher);
 	}
 	return (NULL);
 }
