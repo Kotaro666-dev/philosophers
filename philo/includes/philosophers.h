@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:22:35 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 09:46:47 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 11:00:58 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,25 @@ typedef struct s_philo
 }				t_philo;
 
 /*
-** START_PHILOSOPHERS.C
+** START_DINING.C
 */
 
-void	start_philosophers(t_philo *philo);
+void	*start_dining(void *void_philosopher);
+
+/*
+** START_MONITORING.C
+*/
+
+void	*start_monitoring(void *void_philosopher);
+
+/*
+** START_ROUTINES.C
+*/
+
+void	wait_til_next_action(int milliseconds);
+void	start_eating(t_philosopher *philosopher);
+void	start_thinking(t_philosopher *philosopher);
+void	start_sleeping(t_philosopher *philosopher);
 
 /*
 ** INITIALIZE.C
