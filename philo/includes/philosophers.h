@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:22:35 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 11:05:50 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 11:16:46 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,6 @@
 # include <sys/time.h>
 # include "constants.h"
 
-typedef struct s_philosopher
-{
-	int				id;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				number_of_eaten;
-	int				number_of_must_eat;
-	int				have_died;
-	pthread_t		pthread_person;
-	pthread_t		pthread_monitor;
-	pthread_mutex_t	*fork_on_left_hand;
-	pthread_mutex_t	*fork_on_right_hand;
-}				t_philosopher;
-
 typedef struct s_config
 {
 	int				number_of_philos;
@@ -46,6 +31,18 @@ typedef struct s_config
 	int				time_to_sleep;
 	int				number_of_must_eat;
 }				t_config;
+
+typedef struct s_philosopher
+{
+	int				id;
+	int				number_of_eaten;
+	int				have_died;
+	t_config		*config;
+	pthread_t		pthread_person;
+	pthread_t		pthread_monitor;
+	pthread_mutex_t	*fork_on_left_hand;
+	pthread_mutex_t	*fork_on_right_hand;
+}				t_philosopher;
 
 typedef struct s_philo
 {

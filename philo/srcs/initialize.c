@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:17:04 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 11:08:00 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 11:21:14 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,8 @@ static void	initialize_philosopher(t_philo *philo)
 	while (i < philo->config.number_of_philos)
 	{
 		philo->philosophers[i].id = i;
-		philo->philosophers[i].time_to_die = philo->config.time_to_die;
-		philo->philosophers[i].time_to_eat = philo->config.time_to_eat;
-		philo->philosophers[i].time_to_sleep = philo->config.time_to_sleep;
 		philo->philosophers[i].number_of_eaten = 0;
-		philo->philosophers[i].number_of_must_eat
-			= philo->config.number_of_must_eat;
+		philo->philosophers[i].config = &(philo->config);
 		philo->philosophers[i].have_died = FALSE;
 		philo->philosophers[i].fork_on_right_hand = &(philo->forks[i]);
 		if (i == philo->config.number_of_philos - 1)
