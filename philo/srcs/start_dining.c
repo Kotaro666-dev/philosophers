@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 10:50:43 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 11:29:54 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 11:33:23 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ static void	force_even_number_philosopher_to_wait(t_philosopher *philosopher)
 		wait_til_next_action(TIME_TO_WAIT_BEFORE_DINING);
 	}
 }
+
+/*
+** 哲学者は食べ終わったら、寝始める行動は必要不可欠
+** 起床してまだ食べる必要があれば、まず考え始める必要がある
+*/
 
 void	*start_dining(void *void_philosopher)
 {
