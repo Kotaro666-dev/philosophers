@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:26:05 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/02 14:33:41 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/02 14:39:41 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	start_phlosopher_process(int index, t_philo *philo)
 {
 	(void)philo;
 	printf("CREATE: Philosopher %d process.\n", index);
-	// TODO: 哲学者とモニターのスレッドを作る
+	// TODO: 哲学者とモニターのスレッドを作り、食事を開始する
 	usleep(1000000);
 	exit(EXIT_SUCCESS);
 }

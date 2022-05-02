@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:26:46 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/02 14:36:15 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/02 14:38:58 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	clean_up(t_philo *philo)
 {
+	// TODO: 動的メモリの開放
 	close_forks(philo);
 }
 
