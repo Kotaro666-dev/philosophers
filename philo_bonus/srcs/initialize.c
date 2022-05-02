@@ -6,11 +6,11 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:17:04 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/02 11:37:09 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/02 13:07:21 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "bonus_philosophers.h"
 
 static void	parse_args(int argc, char **argv, t_philo *philo)
 {
@@ -38,7 +38,59 @@ static void	parse_args(int argc, char **argv, t_philo *philo)
 	}
 }
 
+static void	initialize_philosopher(t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < philo->config.number_of_philos)
+	{
+		philo->philosophers[i].pid = 0;
+		philo->philosophers[i].id = i;
+		philo->philosophers[i].number_of_eaten = 0;
+		philo->philosophers[i].last_meal_time = get_current_timestamp();
+		philo->philosophers[i].have_eaten_all = FALSE;
+		philo->philosophers[i].have_died = FALSE;
+		philo->philosophers[i].config = &(philo->config);
+		if (pthread_mutex_init(&(philo->philosophers[i].is_eating_mutex), NULL) != 0)
+		{
+			// TODO: 動的メモリの開放
+			close_forks(philo);
+			perror_and_exit_with_errno("pthread_mutex_init");
+		}
+		i++;
+	}
+}
+
+static void	initialize_philosophers(t_philo *philo)
+{
+	philo->philosophers = (t_philosopher *)malloc(sizeof(t_philosopher)
+		* philo->config.number_of_philos);
+	if (!philo->philosophers)
+	{
+		perror_and_exit_with_errno("malloc");
+	}
+	initialize_philosopher(philo);
+}
+
+void	initialize_forks(t_philo *philo)
+{
+	philo->forks = sem_open(SEMAPHORE_FORKS_NAME, O_CREAT | O_EXCL, 0x777,
+		philo->config.number_of_philos);
+	if (philo->forks == SEM_FAILED)
+	{
+		if (sem_unlink(SEMAPHORE_FORKS_NAME) == -1)
+		{
+			perror_and_exit_with_errno("sem_unlink");
+		}
+		perror_and_exit_with_errno("sem_open");
+	}
+}
+
+
 void	initialize(int argc, char **argv, t_philo *philo)
 {
 	parse_args(argc, argv, philo);
+	initialize_forks(philo);
+	initialize_philosophers(philo);
 }
