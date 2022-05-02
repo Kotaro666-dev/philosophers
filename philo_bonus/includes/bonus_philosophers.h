@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   bonus_philosophers.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:22:35 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/02 11:33:28 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/02 12:35:46 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+#ifndef BONUS_PHILOSOPHERS_H
+# define BONUS_PHILOSOPHERS_H
 
 # include <unistd.h>
 # include <stdio.h>
@@ -21,7 +21,10 @@
 # include <limits.h>
 # include <errno.h>
 # include <sys/time.h>
-# include "constants.h"
+# include <fcntl.h>
+# include <sys/stat.h>
+# include <semaphore.h>
+# include "bonus_constants.h"
 
 typedef struct s_config
 {
@@ -42,8 +45,6 @@ typedef struct s_philosopher
 	t_config		*config;
 	pthread_t		pthread_person;
 	pthread_t		pthread_monitor;
-	pthread_mutex_t	*fork_on_left_hand;
-	pthread_mutex_t	*fork_on_right_hand;
 	pthread_mutex_t	is_eating_mutex;
 }				t_philosopher;
 
@@ -51,7 +52,7 @@ typedef struct s_philo
 {
 	t_config		config;
 	t_philosopher	*philosophers;
-	pthread_mutex_t	*forks;
+	sem_t			*forks;
 }				t_philo;
 
 /*
