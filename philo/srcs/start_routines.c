@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 10:48:24 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 13:47:47 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/04/29 14:16:02 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	start_eating(t_philosopher *philosopher)
 		return ;
 	}
 	log_eating(philosopher->id + 1);
-	philosopher->number_of_eaten++;
 	philosopher->last_meal_time = get_current_timestamp();
+	philosopher->number_of_eaten++;
 	pthread_mutex_unlock(&(philosopher->is_eating_mutex));
 	wait_til_next_action(philosopher->config->time_to_eat);
 }
@@ -54,5 +54,5 @@ void	start_thinking(t_philosopher *philosopher)
 		return ;
 	}
 	log_thinking(philosopher->id + 1);
-	wait_til_next_action(TIME_TO_THINK);
+	// wait_til_next_action(TIME_TO_THINK);
 }
