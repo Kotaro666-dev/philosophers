@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:22:35 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/02 12:35:46 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/02 13:06:12 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_config
 
 typedef struct s_philosopher
 {
+	pid_t			pid;
 	int				id;
 	int				number_of_eaten;
 	int				last_meal_time;
@@ -66,12 +67,13 @@ void	initialize(int argc, char **argv, t_philo *philo);
 */
 
 void	perror_and_exit(char *str);
+void	perror_and_exit_with_errno(char *str);
 
 /*
 ** FREE.C
 */
 
-void	free_forks(t_philo *philo);
+void	close_forks(t_philo *philo);
 
 /*
 ** LOG.C
