@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:26:46 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/10 08:29:38 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/02 11:34:45 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int	main(int argc, char **argv)
 {
+	t_philo	philo;
 
-	(void)argc;
-	(void)argv;
-	printf("Hello World!!");
+	if (argc != 5 && argc != 6)
+		perror_and_exit("Argument count is not correct.");
+	initialize(argc, argv, &philo);
+	return (0);
 }

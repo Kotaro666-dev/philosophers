@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:17:04 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 13:20:56 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/02 11:37:09 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,78 +38,7 @@ static void	parse_args(int argc, char **argv, t_philo *philo)
 	}
 }
 
-static void	initialize_philosopher(t_philo *philo)
-{
-	int	i;
-
-	i = 0;
-	while (i < philo->config.number_of_philos)
-	{
-		philo->philosophers[i].id = i;
-		philo->philosophers[i].number_of_eaten = 0;
-		philo->philosophers[i].last_meal_time = get_current_timestamp();
-		philo->philosophers[i].have_eaten_all = FALSE;
-		philo->philosophers[i].have_died = FALSE;
-		philo->philosophers[i].config = &(philo->config);
-		philo->philosophers[i].fork_on_right_hand = &(philo->forks[i]);
-		if (i == philo->config.number_of_philos - 1)
-		{
-			philo->philosophers[i].fork_on_left_hand = &(philo->forks[0]);
-		}
-		else
-		{
-			philo->philosophers[i].fork_on_left_hand = &(philo->forks[i + 1]);
-		}
-		if (pthread_mutex_init(&(philo->philosophers[i].is_eating_mutex), NULL) != 0)
-		{
-			// TODO: 動的メモリの開放
-			free_forks(philo);
-			perror("pthread_mutex_init");
-			exit(errno);
-		}
-		i++;
-	}
-}
-
-static void	initialize_philosophers(t_philo *philo)
-{
-	philo->philosophers = (t_philosopher *)malloc(sizeof(t_philosopher)
-		* philo->config.number_of_philos);
-	if (!philo->philosophers)
-	{
-		perror("malloc");
-		exit(errno);
-	}
-	initialize_philosopher(philo);
-}
-
-static void	initialize_forks(t_philo *philo)
-{
-	int	i;
-
-	i = 0;
-	philo->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
-			* philo->config.number_of_philos);
-	if (!philo->forks)
-	{
-		perror("malloc");
-		exit(errno);
-	}
-	while (i < philo->config.number_of_philos)
-	{
-		if (pthread_mutex_init(&philo->forks[i], NULL) != 0)
-		{
-			free_forks(philo);
-			perror("pthread_mutex_init");
-			exit(errno);
-		}
-		i++;
-	}
-}
-
 void	initialize(int argc, char **argv, t_philo *philo)
 {
 	parse_args(argc, argv, philo);
-	initialize_forks(philo);
-	initialize_philosophers(philo);
 }
