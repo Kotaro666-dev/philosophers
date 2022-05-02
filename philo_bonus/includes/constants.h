@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:25:28 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/10 08:26:17 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/02 11:44:30 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,8 @@
 # define TRUE 1
 # define FALSE 0
 # define ERROR -1
+
+# define BASIC_ARGC 5
+# define ARGC_WITH_OPTION 6
 
 #endif
