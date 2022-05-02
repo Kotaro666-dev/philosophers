@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 10:52:36 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 13:22:11 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/02 11:48:42 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	*start_monitoring(void *void_philosopher)
 		{
 			break ;
 		}
+		wait_til_next_action(TIME_TO_DO_NEXT_MONITORING);
 	}
 	return (NULL);
 }
