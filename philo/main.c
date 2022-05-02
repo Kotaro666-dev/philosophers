@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:26:46 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 11:06:16 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/02 11:43:22 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, char **argv)
 {
 	t_philo	philo;
 
-	if (argc != 5 && argc != 6)
+	if (argc != BASIC_ARGC && argc != ARGC_WITH_OPTION)
 		perror_and_exit("Argument count is not correct.");
 	initialize(argc, argv, &philo);
 	start_philosophers(&philo);
