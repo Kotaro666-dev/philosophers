@@ -6,11 +6,11 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 15:59:57 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/23 16:01:33 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/02 12:57:03 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "bonus_philosophers.h"
 
 static int	is_space(char c)
 {

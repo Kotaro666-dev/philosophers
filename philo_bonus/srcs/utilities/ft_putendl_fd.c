@@ -6,11 +6,11 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 16:13:39 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/23 16:19:03 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/02 12:57:00 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "bonus_philosophers.h"
 
 void	ft_putendl_fd(char *str, int fd)
 {

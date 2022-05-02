@@ -6,11 +6,11 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 09:08:11 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/27 09:15:13 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/02 12:56:46 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "bonus_philosophers.h"
 
 long	get_current_timestamp()
 {

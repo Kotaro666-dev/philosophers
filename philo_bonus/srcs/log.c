@@ -6,11 +6,11 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 20:37:05 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/10 20:44:33 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/02 12:56:27 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "bonus_philosophers.h"
 
 void	log_taking_fork(long timestamp_in_ms, int philosopher_number)
 {
