@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:22:35 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/02 13:06:12 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/02 14:35:06 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <semaphore.h>
+# include <sys/types.h>
+# include <signal.h>
 # include "bonus_constants.h"
 
 typedef struct s_config
@@ -61,6 +63,13 @@ typedef struct s_philo
 */
 
 void	initialize(int argc, char **argv, t_philo *philo);
+
+/*
+** HANDLE_PROCESS.C
+*/
+
+void	wait_all_philosophers_processes(t_philo *philo);
+void	fork_philosophers_processes(t_philo *philo);
 
 /*
 ** HANDLE_ERROR.C
