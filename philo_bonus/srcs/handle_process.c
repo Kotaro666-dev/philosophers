@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:26:05 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/03 12:36:28 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 13:13:12 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 
 static void	start_phlosopher_process(int index, t_philo *philo)
 {
-	(void)philo;
-	printf("CREATE: Philosopher %d process.\n", index);
-	// TODO: 哲学者とモニターのスレッドを作り、食事を開始する
-	usleep(1000000);
+	if (pthread_create(&(philo->philosophers[index].pthread_person), NULL,
+				start_dining, &(philo->philosophers[index])) != 0)
+	{
+		clean_up(philo);
+		perror_and_exit("pthread_create");
+	}
+	if (pthread_create(&(philo->philosophers[index].pthread_monitor), NULL,
+			start_monitoring, &(philo->philosophers[index])) != 0)
+	{
+		clean_up(philo);
+		perror_and_exit("pthread_create");
+	}
 	exit(EXIT_SUCCESS);
 }
 
