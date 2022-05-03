@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:26:05 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/03 13:13:12 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:12:00 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	start_phlosopher_process(int index, t_philo *philo)
 		clean_up(philo);
 		perror_and_exit("pthread_create");
 	}
+	pthread_join(philo->philosophers[index].pthread_person, NULL);
+	pthread_join(philo->philosophers[index].pthread_monitor, NULL);
 	exit(EXIT_SUCCESS);
 }
 
