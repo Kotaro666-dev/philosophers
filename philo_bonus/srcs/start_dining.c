@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 10:50:43 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/03 16:57:06 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:12:50 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	take_fork(t_philosopher *philosopher)
 	log_taking_fork(philosopher->id + 1);
 }
 
-static int	take_fork_on_left_side(t_philosopher *philosopher)
+static void	take_fork_on_left_side(t_philosopher *philosopher)
 {
 	sem_wait(philosopher->waiter);
 	if (*(philosopher->forks) < 2)
@@ -31,7 +31,7 @@ static int	take_fork_on_left_side(t_philosopher *philosopher)
 	sem_post(philosopher->waiter);
 }
 
-static int	take_fork_on_right_side(t_philosopher *philosopher)
+static void	take_fork_on_right_side(t_philosopher *philosopher)
 {
 	sem_wait(philosopher->waiter);
 	if (*(philosopher->forks) == 0)
