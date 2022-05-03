@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:22:35 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/02 14:35:06 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 12:34:18 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	perror_and_exit_with_errno(char *str);
 */
 
 void	close_forks(t_philo *philo);
+void	clean_up(t_philo *philo);
 
 /*
 ** LOG.C

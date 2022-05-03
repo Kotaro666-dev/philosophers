@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:26:05 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/02 14:39:41 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 12:36:28 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	kill_all_philosophers_processes(t_philo *philo)
 	{
 		if (kill(philo->philosophers[i].pid, SIGTERM) == -1)
 		{
-			close_forks(philo);
+			clean_up(philo);
 			perror_and_exit_with_errno("kill");
 		}
 	}
@@ -47,7 +47,7 @@ void	wait_all_philosophers_processes(t_philo *philo)
 	{
 		if (waitpid(-1, &wstatus, 0) == -1)
 		{
-			close_forks(philo);
+			clean_up(philo);
 			perror_and_exit_with_errno("waitpid");
 		}
 		if (wstatus != EXIT_SUCCESS)
@@ -69,7 +69,7 @@ void	fork_philosophers_processes(t_philo *philo)
 		philo->philosophers[i].pid = fork();
 		if (philo->philosophers[i].pid == -1)
 		{
-			close_forks(philo);
+			clean_up(philo);
 			perror_and_exit_with_errno("fork");
 		}
 		else if (philo->philosophers[i].pid == 0)

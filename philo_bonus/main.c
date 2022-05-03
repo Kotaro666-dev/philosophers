@@ -6,17 +6,11 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:26:46 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/02 14:38:58 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 12:35:20 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bonus_philosophers.h"
-
-static void	clean_up(t_philo *philo)
-{
-	// TODO: 動的メモリの開放
-	close_forks(philo);
-}
 
 void	start_philosophers(t_philo *philo)
 {
