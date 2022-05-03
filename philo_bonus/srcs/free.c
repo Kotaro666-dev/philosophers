@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:27:30 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/03 12:40:46 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:19:01 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ void	close_forks(t_philo *philo)
 	}
 }
 
+void	close_waiter(t_philo *philo)
+{
+	if (sem_close(philo->waiter) == -1)
+	{
+		perror_and_exit_with_errno("sem_close");
+	}
+	if (sem_unlink(SEMAPHORE_WAITER_NAME) == -1)
+	{
+		perror_and_exit_with_errno("sem_unlink");
+	}
+}
+
 void	clean_up(t_philo *philo)
 {
 	int	i;
@@ -35,6 +47,7 @@ void	clean_up(t_philo *philo)
 		i++;
 	}
 	close_forks(philo);
+	close_waiter(philo);
 	free(philo->philosophers);
 	philo->philosophers = NULL;
 }
