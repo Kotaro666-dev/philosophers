@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:22:35 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/03 12:34:18 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 13:38:44 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ typedef struct s_philosopher
 	int				have_eaten_all;
 	int				have_died;
 	t_config		*config;
+	sem_t			*is_eating_semaphore;
 	pthread_t		pthread_person;
 	pthread_t		pthread_monitor;
-	pthread_mutex_t	is_eating_mutex;
 }				t_philosopher;
 
 typedef struct s_philo
@@ -72,6 +72,27 @@ void	wait_all_philosophers_processes(t_philo *philo);
 void	fork_philosophers_processes(t_philo *philo);
 
 /*
+** START_DINING.C
+*/
+
+void	*start_dining(void *void_philosopher);
+
+/*
+** START_MONITORING.C
+*/
+
+void	*start_monitoring(void *void_philosopher);
+
+/*
+** START_ROUTINES.C
+*/
+
+void	wait_til_next_action(int milliseconds);
+void	start_eating(t_philosopher *philosopher);
+void	start_thinking(t_philosopher *philosopher);
+void	start_sleeping(t_philosopher *philosopher);
+
+/*
 ** HANDLE_ERROR.C
 */
 
@@ -89,11 +110,11 @@ void	clean_up(t_philo *philo);
 ** LOG.C
 */
 
-void	log_taking_fork(long timestamp_in_ms, int philosopher_number);
-void	log_eating(long timestamp_in_ms, int philosopher_number);
-void	log_sleeping(long timestamp_in_ms, int philosopher_number);
-void	log_thinking(long timestamp_in_ms, int philosopher_number);
-void	log_having_died(long timestamp_in_ms, int philosopher_number);
+void	log_taking_fork(int philosopher_number);
+void	log_eating(int philosopher_number);
+void	log_sleeping(int philosopher_number);
+void	log_thinking(int philosopher_number);
+void	log_having_died(int philosopher_number);
 
 /*
 ** UTILITIES
