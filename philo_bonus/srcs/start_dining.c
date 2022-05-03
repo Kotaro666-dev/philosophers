@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 10:50:43 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/03 13:39:08 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 16:57:06 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,40 @@
 
 static void	take_fork(t_philosopher *philosopher)
 {
-	// ウェイターにフォークを取れるか問い合わせる
-	// フォークが残り2本以上の場合、問答無用で許可する
-	// フォークが残り1本の場合、リクエストした哲学者の保持するフォークが1本の場合、許可する
-	// フォークが残り1本の場合、リクエストした哲学者の保持するフォークが0本の場合、許可しない
-	// フォークが残り0本の場合、許可しない
+	sem_wait(philosopher->forks);
 	log_taking_fork(philosopher->id + 1);
+}
+
+static int	take_fork_on_left_side(t_philosopher *philosopher)
+{
+	sem_wait(philosopher->waiter);
+	if (*(philosopher->forks) < 2)
+	{
+		sem_post(philosopher->waiter);
+		// TODO:　少し usleep してもいいかも
+		take_fork_on_left_side(philosopher);
+	}
+	take_fork(philosopher);
+	sem_post(philosopher->waiter);
+}
+
+static int	take_fork_on_right_side(t_philosopher *philosopher)
+{
+	sem_wait(philosopher->waiter);
+	if (*(philosopher->forks) == 0)
+	{
+		sem_post(philosopher->waiter);
+		// TODO:　少し usleep してもいいかも
+		take_fork_on_right_side(philosopher);
+	}
+	take_fork(philosopher);
+	sem_post(philosopher->waiter);
 }
 
 static void	put_forks_back_on_table(t_philosopher *philosopher)
 {
-	// sem_post();
-	// sem_post();
-	(void)philosopher;
+	sem_post(philosopher->forks);
+	sem_post(philosopher->forks);
 	printf("Put forks back on table.\n");
 }
 
@@ -42,8 +63,8 @@ void	*start_dining(void *void_philosopher)
 	philosopher = (t_philosopher *)void_philosopher;
 	while (!(philosopher->have_died))
 	{
-		take_fork(philosopher);
-		take_fork(philosopher);
+		take_fork_on_left_side(philosopher);
+		take_fork_on_right_side(philosopher);
 		start_eating(philosopher);
 		put_forks_back_on_table(philosopher);
 		start_sleeping(philosopher);
