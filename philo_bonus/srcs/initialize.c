@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:17:04 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/03 16:16:57 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:11:21 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	initialize_philosopher(t_philo *philo)
 		philo->philosophers[i].forks = philo->forks;
 		philo->philosophers[i].waiter = philo->waiter;
 		philo->philosophers[i].is_eating_semaphore =
-			sem_open(SAMAPHORE_IS_EATING_NAME, O_CREAT, S_IRWXU, 0);
+			sem_open(SAMAPHORE_IS_EATING_NAME, O_CREAT, S_IRWXU, 1);
 		if (philo->philosophers[i].is_eating_semaphore == SEM_FAILED)
 		{
 			if (sem_unlink(SAMAPHORE_IS_EATING_NAME) == -1)
@@ -81,7 +81,7 @@ static void	initialize_philosophers(t_philo *philo)
 
 static void	initialize_waiter(t_philo *philo)
 {
-	philo->waiter = sem_open(SEMAPHORE_WAITER_NAME, O_CREAT, S_IRWXU, 0);
+	philo->waiter = sem_open(SEMAPHORE_WAITER_NAME, O_CREAT, S_IRWXU, 1);
 	if (philo->waiter == SEM_FAILED)
 	{
 		if (sem_unlink(SEMAPHORE_WAITER_NAME) == -1)
