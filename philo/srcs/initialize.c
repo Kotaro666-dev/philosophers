@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:17:04 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 13:20:56 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 12:17:12 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ static void	initialize_philosopher(t_philo *philo)
 		{
 			// TODO: 動的メモリの開放
 			free_forks(philo);
-			perror("pthread_mutex_init");
-			exit(errno);
+			perror_and_exit("pthread_mutex_init");
 		}
 		i++;
 	}
@@ -77,8 +76,7 @@ static void	initialize_philosophers(t_philo *philo)
 		* philo->config.number_of_philos);
 	if (!philo->philosophers)
 	{
-		perror("malloc");
-		exit(errno);
+		perror_and_exit("malloc");
 	}
 	initialize_philosopher(philo);
 }
@@ -92,16 +90,14 @@ static void	initialize_forks(t_philo *philo)
 			* philo->config.number_of_philos);
 	if (!philo->forks)
 	{
-		perror("malloc");
-		exit(errno);
+		perror_and_exit("malloc");
 	}
 	while (i < philo->config.number_of_philos)
 	{
 		if (pthread_mutex_init(&philo->forks[i], NULL) != 0)
 		{
 			free_forks(philo);
-			perror("pthread_mutex_init");
-			exit(errno);
+			perror_and_exit("pthread_mutex_init");
 		}
 		i++;
 	}

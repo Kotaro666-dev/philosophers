@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:22:35 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 13:21:38 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 12:13:08 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	log_having_died(int philosopher_number);
 */
 
 void	perror_and_exit(char *str);
+void	perror_and_exit_with_errno(char *str);
 
 /*
 ** FREE.C

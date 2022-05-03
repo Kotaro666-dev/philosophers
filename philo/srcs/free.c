@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:27:30 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/04/29 11:08:28 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 12:18:35 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	free_forks(t_philo *philo)
 	{
 		if (pthread_mutex_destroy(&philo->forks[i]) != 0)
 		{
-			perror("pthread_mutex_destroy");
-			exit(errno);
+			perror_and_exit("pthread_mutex_destroy");
 		}
 	}
 }
