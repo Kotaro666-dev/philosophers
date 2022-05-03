@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:25:28 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/03 13:43:36 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 16:14:51 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define ARGC_WITH_OPTION 6
 
 # define SEMAPHORE_FORKS_NAME "/philo_bonus_forks"
+# define SEMAPHORE_WAITER_NAME "/philo_bonus_waiter"
 # define SAMAPHORE_IS_EATING_NAME "/philo_bonus_is_eating"
 
 # define TIME_TO_THINK 1

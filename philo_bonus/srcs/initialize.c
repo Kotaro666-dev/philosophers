@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:17:04 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/03 13:47:30 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 16:16:57 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static void	initialize_philosopher(t_philo *philo)
 		philo->philosophers[i].have_eaten_all = FALSE;
 		philo->philosophers[i].have_died = FALSE;
 		philo->philosophers[i].config = &(philo->config);
+		philo->philosophers[i].forks = philo->forks;
+		philo->philosophers[i].waiter = philo->waiter;
 		philo->philosophers[i].is_eating_semaphore =
 			sem_open(SAMAPHORE_IS_EATING_NAME, O_CREAT, S_IRWXU, 0);
 		if (philo->philosophers[i].is_eating_semaphore == SEM_FAILED)
@@ -77,7 +79,20 @@ static void	initialize_philosophers(t_philo *philo)
 	initialize_philosopher(philo);
 }
 
-void	initialize_forks(t_philo *philo)
+static void	initialize_waiter(t_philo *philo)
+{
+	philo->waiter = sem_open(SEMAPHORE_WAITER_NAME, O_CREAT, S_IRWXU, 0);
+	if (philo->waiter == SEM_FAILED)
+	{
+		if (sem_unlink(SEMAPHORE_WAITER_NAME) == -1)
+		{
+			perror_and_exit_with_errno("sem_unlink");
+		}
+		perror_and_exit_with_errno("sem_open");
+	}
+}
+
+static void	initialize_forks(t_philo *philo)
 {
 	philo->forks = sem_open(SEMAPHORE_FORKS_NAME, O_CREAT, S_IRWXU,
 		philo->config.number_of_philos);
@@ -91,10 +106,10 @@ void	initialize_forks(t_philo *philo)
 	}
 }
 
-
 void	initialize(int argc, char **argv, t_philo *philo)
 {
 	parse_args(argc, argv, philo);
 	initialize_forks(philo);
+	initialize_waiter(philo);
 	initialize_philosophers(philo);
 }
