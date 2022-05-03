@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:26:46 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/03 12:13:35 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 12:28:59 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ static void	start_philosophers(t_philo *philo)
 		if (pthread_create(&(philo->philosophers[i].pthread_person), NULL,
 				start_dining, &(philo->philosophers[i])) != 0)
 		{
-			// 動的メモリの開放
+			clean_up(philo);
 			perror_and_exit("pthread_create");
 		}
 		if (pthread_create(&(philo->philosophers[i].pthread_monitor), NULL,
 				start_monitoring, &(philo->philosophers[i])) != 0)
 		{
-			// 動的メモリの開放
+			clean_up(philo);
 			perror_and_exit("pthread_create");
 		}
 		i++;

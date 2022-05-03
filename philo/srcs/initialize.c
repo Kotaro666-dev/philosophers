@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:17:04 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/03 12:17:12 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/03 12:28:27 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ static void	initialize_philosopher(t_philo *philo)
 		}
 		if (pthread_mutex_init(&(philo->philosophers[i].is_eating_mutex), NULL) != 0)
 		{
-			// TODO: 動的メモリの開放
-			free_forks(philo);
+			clean_up(philo);
 			perror_and_exit("pthread_mutex_init");
 		}
 		i++;
@@ -96,7 +95,7 @@ static void	initialize_forks(t_philo *philo)
 	{
 		if (pthread_mutex_init(&philo->forks[i], NULL) != 0)
 		{
-			free_forks(philo);
+			clean_up(philo);
 			perror_and_exit("pthread_mutex_init");
 		}
 		i++;
