@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:26:05 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/03 17:12:00 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/06 12:46:51 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	wait_all_philosophers_processes(t_philo *philo)
 		{
 			kill_all_philosophers_processes(philo);
 		}
-		printf("FINISH: Philosopher %d process.\n", philo->philosophers[i].pid);
 		i++;
 	}
 }
