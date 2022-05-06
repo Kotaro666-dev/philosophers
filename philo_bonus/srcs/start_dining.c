@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 10:50:43 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/03 17:12:50 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/06 12:28:58 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,43 @@
 
 static void	take_fork(t_philosopher *philosopher)
 {
-	sem_wait(philosopher->forks);
+	sem_wait(*(philosopher->forks));
 	log_taking_fork(philosopher->id + 1);
 }
 
 static void	take_fork_on_left_side(t_philosopher *philosopher)
 {
-	sem_wait(philosopher->waiter);
-	if (*(philosopher->forks) < 2)
+	if (sem_wait(*(philosopher->waiter)) == -1)
 	{
-		sem_post(philosopher->waiter);
+		perror_and_exit_with_errno("sem_wait");
+	}
+	if (*(philosopher->forks) < (sem_t *)2)
+	{
+		sem_post(*(philosopher->waiter));
 		// TODO:　少し usleep してもいいかも
 		take_fork_on_left_side(philosopher);
 	}
 	take_fork(philosopher);
-	sem_post(philosopher->waiter);
+	sem_post(*(philosopher->waiter));
 }
 
 static void	take_fork_on_right_side(t_philosopher *philosopher)
 {
-	sem_wait(philosopher->waiter);
+	sem_wait(*(philosopher->waiter));
 	if (*(philosopher->forks) == 0)
 	{
-		sem_post(philosopher->waiter);
+		sem_post(*(philosopher->waiter));
 		// TODO:　少し usleep してもいいかも
 		take_fork_on_right_side(philosopher);
 	}
 	take_fork(philosopher);
-	sem_post(philosopher->waiter);
+	sem_post(*(philosopher->waiter));
 }
 
 static void	put_forks_back_on_table(t_philosopher *philosopher)
 {
-	sem_post(philosopher->forks);
-	sem_post(philosopher->forks);
-	printf("Put forks back on table.\n");
+	sem_post(*(philosopher->forks));
+	sem_post(*(philosopher->forks));
 }
 
 /*

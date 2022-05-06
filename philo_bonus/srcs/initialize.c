@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 08:17:04 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/03 17:11:21 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/06 12:22:08 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static void	initialize_philosopher(t_philo *philo)
 		philo->philosophers[i].have_eaten_all = FALSE;
 		philo->philosophers[i].have_died = FALSE;
 		philo->philosophers[i].config = &(philo->config);
-		philo->philosophers[i].forks = philo->forks;
-		philo->philosophers[i].waiter = philo->waiter;
+		philo->philosophers[i].forks = &(philo->forks);
+		philo->philosophers[i].waiter = &(philo->waiter);
 		philo->philosophers[i].is_eating_semaphore =
 			sem_open(SAMAPHORE_IS_EATING_NAME, O_CREAT, S_IRWXU, 1);
 		if (philo->philosophers[i].is_eating_semaphore == SEM_FAILED)

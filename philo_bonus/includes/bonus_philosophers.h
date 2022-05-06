@@ -6,7 +6,7 @@
 /*   By: kkamashi <kkamashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 08:22:35 by kkamashi          #+#    #+#             */
-/*   Updated: 2022/05/03 16:57:26 by kkamashi         ###   ########.fr       */
+/*   Updated: 2022/05/06 12:21:22 by kkamashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ typedef struct s_philosopher
 	int				have_eaten_all;
 	int				have_died;
 	t_config		*config;
-	sem_t			*forks;
-	sem_t			*waiter;
+	sem_t			**forks;
+	sem_t			**waiter;
 	sem_t			*is_eating_semaphore;
 	pthread_t		pthread_person;
 	pthread_t		pthread_monitor;
